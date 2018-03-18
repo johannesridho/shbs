@@ -32,6 +32,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin", "/admin/").authenticated()
                 .antMatchers("/admin/user/change-password").authenticated()
                 .antMatchers("/admin/user/**").hasRole(Role.ADMIN.name())
+                .antMatchers("/admin/room-type/**").hasRole(Role.ADMIN.name())
 
                 // This is the 'guard' code that make sure every URL must be protected
                 .antMatchers("/admin/**").hasAuthority("GUARD")

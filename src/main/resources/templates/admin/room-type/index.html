@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="layout :: layoutHead (pageTitle='Room Types | Admin Panel')"></head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header th:replace="layout :: layoutMainHeader"></header>
+    <aside th:replace="layout :: layoutSidebar"></aside>
+
+    <div class="content-wrapper">
+        <section class="content-header"></section>
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Room Type List</h3>
+                        </div>
+                        <div class="box-body">
+                            <table id="userTable" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Image URL</th>
+                                    <th>Quantity</th>
+                                    <th>Available</th>
+                                    <th>Price</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="roomType : ${roomTypes}">
+                                    <td th:text="${roomType?.id}"></td>
+                                    <td th:text="${roomType?.type}"></td>
+                                    <td th:text="${roomType?.description}"></td>
+                                    <td th:text="${roomType?.image}"></td>
+                                    <td th:text="${roomType?.quantity}"></td>
+                                    <td th:text="${roomType?.available}"></td>
+                                    <td th:text="${roomType?.price}"></td>
+                                    <td th:text="${roomType?.createdAt}"></td>
+                                    <td th:text="${roomType?.updatedAt}"></td>
+                                    <td>
+                                        <a sec:authorize="hasRole(T(com.shbs.admin.user.authority.Role).ADMIN.name())"
+                                           class="btn btn-xs btn-default" th:href="@{/admin/room-type/update/} + ${roomType?.id}">
+                                            Update</a>
+                                        <a sec:authorize="hasRole(T(com.shbs.admin.user.authority.Role).ADMIN.name())"
+                                           class="btn btn-xs btn-default" th:href="@{/admin/room-type/delete/} + ${roomType?.id}"
+                                           onclick="return Utility.showConfirmDialog()">Delete</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <a id="create-btn" class="btn btn-sm btn-primary btn-flat pull-left" th:href="@{/admin/room-type/create}"
+                               sec:authorize="hasRole(T(com.shbs.admin.user.authority.Role).ADMIN.name())">Create new</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer th:replace="layout :: layoutFooter"></footer>
+</div>
+<div th:replace="layout :: layoutScripts"></div>
+
+</body>
+
+</html>

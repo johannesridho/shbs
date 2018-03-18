@@ -3,7 +3,6 @@ package com.shbs.admin.user;
 import com.shbs.admin.Utility;
 import com.shbs.admin.user.model.ChangePasswordForm;
 import com.shbs.admin.user.model.User;
-import com.shbs.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("admin/user")
@@ -24,8 +22,8 @@ public class UserController {
 
     @GetMapping
     public String index(Model model) {
-        Iterable<User> userList = userService.getAllUser();
-        model.addAttribute("userList", userList);
+        final Iterable<User> users = userService.findAll();
+        model.addAttribute("users", users);
         return "admin/user/index";
     }
 
@@ -37,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("create")
-    public String createUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+    public String create(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             Utility.addAttributesToFormModel(model, "Create New User", "/admin/user/create", "Create");
             return "admin/user/form";
@@ -48,11 +46,8 @@ public class UserController {
     }
 
     @GetMapping("delete/{name}")
-    public String delete(@PathVariable String name, Principal principal) {
-        final Optional<User> user = userService.getUserByUsername(name);
-        if (user.isPresent() && !principal.getName().equals(name)) {
-            userService.deleteUser(name);
-        }
+    public String delete(@PathVariable String name) {
+        userService.deleteUser(name);
 
         return "redirect:/admin/user";
     }
@@ -70,9 +65,7 @@ public class UserController {
         Principal principal,
         @Valid @ModelAttribute("changePasswordForm") ChangePasswordForm form,
         BindingResult bindingResult) {
-        final User user = userService
-            .getUserByUsername(principal.getName())
-            .orElseThrow(() -> new NotFoundException(User.class, principal.getName()));
+        final User user = userService.findByUsername(principal.getName());
 
         if (!userService.isPasswordMatch(form.getCurrentPassword(), user.getPassword())) {
             bindingResult.addError(new FieldError("changePasswordForm", "currentPassword", "Password is incorrect"));

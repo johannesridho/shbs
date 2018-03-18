@@ -1,11 +1,10 @@
 package com.shbs.admin.user;
 
 import com.shbs.admin.user.model.User;
+import com.shbs.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,12 +13,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Iterable<User> getAllUser() {
+    public Iterable<User> findAll() {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserByUsername(String name) {
-        return userRepository.findOne(name);
+    public User findByUsername(String username) {
+        return userRepository.findOne(username)
+                .orElseThrow(() -> new NotFoundException(User.class, username));
     }
 
     public void changeUserPassword(User user, String newPassword) {

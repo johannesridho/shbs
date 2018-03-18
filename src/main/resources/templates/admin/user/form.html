@@ -19,25 +19,32 @@
                         <div class="box-header with-border">
                             <h3 class="box-title" th:text="${pageHeader}"></h3>
                         </div>
-                        <form role="form" th:action="${formAction}" th:object="${userForm}" method="post">
+                        <form role="form" th:action="${formAction}" th:object="${user}" method="post">
                             <div class="box-body">
                                 <div class="form-group" th:if="${buttonValue == 'Create'}">
                                     <label>Username</label>
                                     <input type="text" class="form-control" placeholder="Username" name="username"
                                            required="required"/>
+                                    <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                                        errors</label>
                                 </div>
                                 <div class="form-group" th:if="${buttonValue == 'Update'}">
                                     <label>Username</label>
                                     <input type="text" class="form-control" placeholder="Username" name="username"
                                            readonly="readonly" th:value="*{username}"/>
+                                    <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                                        errors</label>
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input type="password" class="form-control" placeholder="Password" name="password"/>
+                                    <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                                        errors</label>
                                 </div>
                                 <div class="form-group">
                                     <label>Re-type Password</label>
-                                    <input type="password" class="form-control" placeholder="Re-type Password" name="rePassword"/>
+                                    <input type="password" class="form-control" placeholder="Re-type Password"
+                                           name="rePassword"/>
                                 </div>
                                 <div class="form-group" th:if="${buttonValue == 'Create'}">
                                     <label>Enabled</label>
@@ -45,8 +52,9 @@
                                         <option>1</option>
                                         <option>0</option>
                                     </select>
+                                    <label th:if="${#fields.hasErrors('enabled')}" th:errors="*{enabled}">
+                                        errors</label>
                                 </div>
-                                <label id="error-text"></label>
                             </div>
                             <div class="box-footer">
                                 <button id="submit-btn" type="submit" class="btn btn-primary" th:text="${buttonValue}">

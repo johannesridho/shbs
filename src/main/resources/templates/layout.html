@@ -70,9 +70,17 @@
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu tree">
                 <li class="header">NAVIGATION</li>
-                <li th:class="${#strings.equals(#httpServletRequest.getRequestURI(), '/admin/user') ? 'active':''}" sec:authorize="hasRole(T(com.shbs.admin.user.authority.Role).ADMIN.name())">
+
+                <li th:class="${#strings.equals(#httpServletRequest.getRequestURI(), '/admin/room-type') ? 'active':''}"
+                    sec:authorize="hasRole(T(com.shbs.admin.user.authority.Role).ADMIN.name())">
+                    <a th:href="@{/admin/room-type}"><i class="fa fa-key fa-fw"></i> <span>Room Types</span></a>
+                </li>
+
+                <li th:class="${#strings.equals(#httpServletRequest.getRequestURI(), '/admin/user') ? 'active':''}"
+                    sec:authorize="hasRole(T(com.shbs.admin.user.authority.Role).ADMIN.name())">
                     <a th:href="@{/admin/user}"><i class="fa fa-key fa-fw"></i> <span>Users</span></a>
                 </li>
+
                 <li th:class="${#strings.contains(#httpServletRequest.getRequestURI(), '/admin/user/change-password') ? 'active':''}">
                     <a th:href="@{/admin/user/change-password}">
                         <i class="fa fa-pencil-square-o"></i> <span>Change Password</span>
