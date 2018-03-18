@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS authorities (
+  id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  username VARCHAR(32) NOT NULL,
+  authority VARCHAR(32) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY username_authority (username, authority),
+  FOREIGN KEY (username) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

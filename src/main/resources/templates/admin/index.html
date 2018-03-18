@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: layoutHead (pageTitle='Admin Panel')"></head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header th:replace="layout :: layoutMainHeader"></header>
+    <aside th:replace="layout :: layoutSidebar"></aside>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                Welcome!
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Your Page Content Here -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <footer th:replace="layout :: layoutFooter"></footer>
+</div>
+
+<div th:replace="layout :: layoutScripts"></div>
+
+</body>
+</html>
