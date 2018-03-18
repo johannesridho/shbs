@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: layoutHead (pageTitle='Admin User | Admin Panel')"></head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header th:replace="layout :: layoutMainHeader"></header>
+    <aside th:replace="layout :: layoutSidebar"></aside>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+
+        </section>
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title" th:text="${pageHeader}"></h3>
+                        </div>
+                        <form role="form" th:action="${formAction}" th:object="${userForm}" method="post">
+                            <div class="box-body">
+                                <div class="form-group" th:if="${buttonValue == 'Create'}">
+                                    <label>Username</label>
+                                    <input type="text" class="form-control" placeholder="Username" name="username"
+                                           required="required"/>
+                                </div>
+                                <div class="form-group" th:if="${buttonValue == 'Update'}">
+                                    <label>Username</label>
+                                    <input type="text" class="form-control" placeholder="Username" name="username"
+                                           readonly="readonly" th:value="*{username}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" placeholder="Password" name="password"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Re-type Password</label>
+                                    <input type="password" class="form-control" placeholder="Re-type Password" name="rePassword"/>
+                                </div>
+                                <div class="form-group" th:if="${buttonValue == 'Create'}">
+                                    <label>Enabled</label>
+                                    <select class="form-control" name="enabled" required="required">
+                                        <option>1</option>
+                                        <option>0</option>
+                                    </select>
+                                </div>
+                                <label id="error-text"></label>
+                            </div>
+                            <div class="box-footer">
+                                <button id="submit-btn" type="submit" class="btn btn-primary" th:text="${buttonValue}">
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer th:replace="layout :: layoutFooter"></footer>
+</div>
+<div th:replace="layout :: layoutScripts"></div>
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('input').keyup(function() {
+            Utility.passwordsAreEquals('password', 'rePassword', '#error-text');
+        });
+    });
+</script>
+
+</html>

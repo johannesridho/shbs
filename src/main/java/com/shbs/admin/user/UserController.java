@@ -1,5 +1,6 @@
 package com.shbs.admin.user;
 
+import com.shbs.admin.Utility;
 import com.shbs.admin.user.model.ChangePasswordForm;
 import com.shbs.admin.user.model.User;
 import com.shbs.common.exception.NotFoundException;
@@ -8,13 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("admin/user")
@@ -22,6 +21,41 @@ import java.security.Principal;
 public class UserController {
 
     private final UserService userService;
+
+    @GetMapping
+    public String index(Model model) {
+        Iterable<User> userList = userService.getAllUser();
+        model.addAttribute("userList", userList);
+        return "admin/user/index";
+    }
+
+    @GetMapping("create")
+    public String getCreatePage(Model model) {
+        model.addAttribute("user", new User());
+        Utility.addAttributesToFormModel(model, "Create New User", "/admin/user/create", "Create");
+        return "admin/user/form";
+    }
+
+    @PostMapping("create")
+    public String createUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            Utility.addAttributesToFormModel(model, "Create New User", "/admin/user/create", "Create");
+            return "admin/user/form";
+        } else {
+            userService.saveUser(user);
+            return "redirect:/admin/user";
+        }
+    }
+
+    @GetMapping("delete/{name}")
+    public String delete(@PathVariable String name, Principal principal) {
+        final Optional<User> user = userService.getUserByUsername(name);
+        if (user.isPresent() && !principal.getName().equals(name)) {
+            userService.deleteUser(name);
+        }
+
+        return "redirect:/admin/user";
+    }
 
     @GetMapping("change-password")
     public String getChangePasswordPage(Model model) {
