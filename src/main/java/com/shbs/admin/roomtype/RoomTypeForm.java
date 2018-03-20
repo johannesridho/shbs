@@ -20,12 +20,16 @@ public class RoomTypeForm {
     private String image;
 
     @NotNull
+    private Integer quantity;
+
+    @NotNull
     private BigDecimal price;
 
     public RoomTypeForm(RoomType roomType) {
         this.type = roomType.getType();
         this.description = roomType.getDescription();
         this.image = roomType.getImage();
+        this.quantity = roomType.getQuantity();
         this.price = roomType.getPrice();
     }
 }

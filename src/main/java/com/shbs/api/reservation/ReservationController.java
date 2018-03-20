@@ -1,5 +1,7 @@
 package com.shbs.api.reservation;
 
+import com.shbs.common.reservation.Reservation;
+import com.shbs.common.reservation.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("reservation")
+@RequestMapping("reservations")
 @RequiredArgsConstructor
 public class ReservationController {
 

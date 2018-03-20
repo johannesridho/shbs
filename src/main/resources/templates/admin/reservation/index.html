@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:include="layout :: layoutHead (pageTitle='Reservations | Admin Panel')"></head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header th:replace="layout :: layoutMainHeader"></header>
+    <aside th:replace="layout :: layoutSidebar"></aside>
+
+    <div class="content-wrapper">
+        <section class="content-header"></section>
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Reservation List</h3>
+                        </div>
+                        <div class="box-body">
+                            <table id="userTable" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Room Type ID</th>
+                                    <th>Customer ID</th>
+                                    <th>Quantity</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Cancelled</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="reservation : ${reservations}">
+                                    <td th:text="${reservation?.id}"></td>
+                                    <td th:text="${reservation?.roomTypeId}"></td>
+                                    <td th:text="${reservation?.customerId}"></td>
+                                    <td th:text="${reservation?.quantity}"></td>
+                                    <td th:text="${reservation?.startDate}"></td>
+                                    <td th:text="${reservation?.endDate}"></td>
+                                    <td th:text="${reservation?.cancelled}"></td>
+                                    <td th:text="${reservation?.createdAt}"></td>
+                                    <td th:text="${reservation?.updatedAt}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer th:replace="layout :: layoutFooter"></footer>
+</div>
+<div th:replace="layout :: layoutScripts"></div>
+
+</body>
+
+</html>

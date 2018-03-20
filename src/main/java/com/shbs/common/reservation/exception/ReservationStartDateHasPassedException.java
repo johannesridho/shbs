@@ -1,4 +1,4 @@
-package com.shbs.api.reservation.exception;
+package com.shbs.common.reservation.exception;
 
 import com.shbs.common.exception.ShbsException;
 

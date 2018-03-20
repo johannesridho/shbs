@@ -48,13 +48,6 @@
                                         errors</label>
                                 </div>
                                 <div class="form-group">
-                                    <label>Available</label>
-                                    <input type="number" class="form-control" placeholder="available"
-                                           name="available" required="required" th:value="${roomTypeForm?.available}"/>
-                                    <label th:if="${#fields.hasErrors('available')}" th:errors="*{available}">
-                                        errors</label>
-                                </div>
-                                <div class="form-group">
                                     <label>Price</label>
                                     <input type="number" class="form-control" placeholder="price"
                                            name="price" required="required" th:value="${roomTypeForm?.price}"/>

@@ -1,4 +1,4 @@
-package com.shbs.api.reservation;
+package com.shbs.common.reservation;
 
 import com.shbs.common.jpa.converter.ZonedDateTimeConverter;
 import lombok.Getter;
@@ -39,7 +39,7 @@ public class Reservation {
     @Convert(converter = ZonedDateTimeConverter.class)
     private ZonedDateTime endDate;
 
-    private Boolean cancel;
+    private Boolean cancelled;
 
     @Convert(converter = ZonedDateTimeConverter.class)
     @CreatedDate

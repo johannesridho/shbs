@@ -31,6 +31,8 @@ public class RoomType {
 
     private String description;
     private String image;
+
+    @NotNull
     private Integer quantity;
 
     @NotNull
