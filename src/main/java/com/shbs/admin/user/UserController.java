@@ -1,8 +1,6 @@
 package com.shbs.admin.user;
 
 import com.shbs.admin.Utility;
-import com.shbs.admin.user.model.ChangePasswordForm;
-import com.shbs.admin.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

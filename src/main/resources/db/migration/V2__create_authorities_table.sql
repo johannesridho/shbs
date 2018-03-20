@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS authorities (
   PRIMARY KEY (id),
   UNIQUE KEY username_authority (username, authority),
   FOREIGN KEY (username) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

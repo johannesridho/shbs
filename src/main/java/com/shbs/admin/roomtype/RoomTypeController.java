@@ -81,8 +81,7 @@ public class RoomTypeController {
         roomType.setType(form.getType());
         roomType.setDescription(form.getDescription());
         roomType.setImage(form.getImage());
-        roomType.setQuantity(form.getQuantity());
-        roomType.setAvailable(form.getAvailable());
+        roomType.setQuantity(0);
         roomType.setPrice(form.getPrice());
 
         roomTypeService.save(roomType);

@@ -1,40 +1,45 @@
-package com.shbs.admin.roomtype;
+package com.shbs.api.reservation;
 
 import com.shbs.common.jpa.converter.ZonedDateTimeConverter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "room_type")
+@Table(name = "reservation")
 @Getter
 @Setter
 @ToString
 @EntityListeners(AuditingEntityListener.class)
-public class RoomType {
+public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
-    private String type;
-
-    private String description;
-    private String image;
-    private Integer quantity;
+    @NotNull
+    private Integer roomTypeId;
 
     @NotNull
-    private BigDecimal price;
+    private Integer customerId;
+
+    @NotNull
+    private Integer quantity;
+
+    @Convert(converter = ZonedDateTimeConverter.class)
+    private ZonedDateTime startDate;
+
+    @Convert(converter = ZonedDateTimeConverter.class)
+    private ZonedDateTime endDate;
+
+    private Boolean cancel;
 
     @Convert(converter = ZonedDateTimeConverter.class)
     @CreatedDate

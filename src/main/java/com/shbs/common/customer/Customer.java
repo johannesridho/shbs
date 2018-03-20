@@ -1,4 +1,4 @@
-package com.shbs.admin.roomtype;
+package com.shbs.common.customer;
 
 import com.shbs.common.jpa.converter.ZonedDateTimeConverter;
 import lombok.Getter;
@@ -10,31 +10,27 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "room_type")
+@Table(name = "customer")
 @Getter
 @Setter
 @ToString
 @EntityListeners(AuditingEntityListener.class)
-public class RoomType {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotBlank
-    private String type;
+    private String username;
 
-    private String description;
-    private String image;
-    private Integer quantity;
+    @NotBlank
+    private String password;
 
-    @NotNull
-    private BigDecimal price;
+    private String name;
 
     @Convert(converter = ZonedDateTimeConverter.class)
     @CreatedDate

@@ -1,4 +1,4 @@
-package com.shbs.admin.user.model;
+package com.shbs.admin.user;
 
 import lombok.Getter;
 import lombok.Setter;

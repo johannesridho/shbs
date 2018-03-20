@@ -1,6 +1,5 @@
 package com.shbs.admin.user;
 
-import com.shbs.admin.user.model.User;
 import com.shbs.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

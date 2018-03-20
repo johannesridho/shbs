@@ -1,4 +1,4 @@
-package com.shbs.admin.user.model;
+package com.shbs.admin.user;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
