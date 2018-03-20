@@ -41,8 +41,9 @@ public class ReservationService {
     }
 
     public Reservation get(Integer id) {
-        return reservationRepository.findOne(id)
-                .orElseThrow(() -> new NotFoundException(Reservation.class, id.toString()));
+        return reservationRepository.findByIdAndAndCancelled(id, Boolean.FALSE)
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Reservation with id %d is not found or it has been cancelled", id)));
     }
 
     @Transactional
@@ -61,6 +62,7 @@ public class ReservationService {
         }
 
         reservation.setCustomerId(request.getCustomerId());
+        reservation.setQuantity(request.getQuantity());
         reservation.setStartDate(request.getStartDate());
         reservation.setEndDate(request.getEndDate());
 
@@ -90,7 +92,7 @@ public class ReservationService {
                 .mapToInt(reservation -> reservation.getQuantity())
                 .sum();
 
-        if (request.getQuantity() > reservedQuantity) {
+        if (request.getQuantity() > (roomType.getQuantity() - reservedQuantity)) {
             throw new AvailableRoomsNotEnoughException();
         }
     }

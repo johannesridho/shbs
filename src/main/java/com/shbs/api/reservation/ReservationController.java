@@ -30,7 +30,7 @@ public class ReservationController {
         return reservationService.update(id, request);
     }
 
-    @PatchMapping("cancel/{id}")
+    @PatchMapping("{id}/cancel")
     public Reservation cancel(@PathVariable Integer id) {
         return reservationService.cancel(id);
     }
