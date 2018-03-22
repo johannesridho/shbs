@@ -1,12 +1,12 @@
 package com.shbs.common.reservation;
 
-import com.shbs.admin.roomtype.RoomType;
-import com.shbs.admin.roomtype.RoomTypeRepository;
 import com.shbs.api.reservation.ReservationRequest;
 import com.shbs.common.exception.NotFoundException;
 import com.shbs.common.reservation.exception.AvailableRoomsNotEnoughException;
 import com.shbs.common.reservation.exception.ReservationAlreadyCancelledException;
 import com.shbs.common.reservation.exception.ReservationStartDateHasPassedException;
+import com.shbs.common.roomtype.RoomType;
+import com.shbs.common.roomtype.RoomTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +40,7 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
-    public Reservation get(Integer id) {
+    public Reservation find(Integer id) {
         return reservationRepository.findByIdAndAndCancelled(id, Boolean.FALSE)
                 .orElseThrow(() -> new NotFoundException(
                         String.format("Reservation with id %d is not found or it has been cancelled", id)));
@@ -48,7 +48,7 @@ public class ReservationService {
 
     @Transactional
     public Reservation update(Integer id, ReservationRequest request) {
-        final Reservation reservation = get(id);
+        final Reservation reservation = find(id);
 
         if (ZonedDateTime.now().isAfter(reservation.getStartDate())) {
             throw new ReservationStartDateHasPassedException();
@@ -71,7 +71,7 @@ public class ReservationService {
 
     @Transactional
     public Reservation cancel(Integer id) {
-        final Reservation reservation = get(id);
+        final Reservation reservation = find(id);
 
         if (reservation.getCancelled()) {
             throw new ReservationAlreadyCancelledException();

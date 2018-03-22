@@ -1,4 +1,4 @@
-package com.shbs.admin.roomtype;
+package com.shbs.common.roomtype;
 
 import com.shbs.common.jpa.converter.ZonedDateTimeConverter;
 import lombok.Getter;

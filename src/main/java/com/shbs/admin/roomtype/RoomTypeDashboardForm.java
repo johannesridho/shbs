@@ -1,5 +1,6 @@
 package com.shbs.admin.roomtype;
 
+import com.shbs.common.roomtype.RoomType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RoomTypeForm {
+public class RoomTypeDashboardForm {
 
     @NotBlank
     private String type;
@@ -25,7 +26,7 @@ public class RoomTypeForm {
     @NotNull
     private BigDecimal price;
 
-    public RoomTypeForm(RoomType roomType) {
+    public RoomTypeDashboardForm(RoomType roomType) {
         this.type = roomType.getType();
         this.description = roomType.getDescription();
         this.image = roomType.getImage();

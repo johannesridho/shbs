@@ -1,6 +1,8 @@
 package com.shbs.admin.roomtype;
 
 import com.shbs.admin.Utility;
+import com.shbs.common.roomtype.RoomType;
+import com.shbs.common.roomtype.RoomTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("admin/room-type")
 @RequiredArgsConstructor
-public class RoomTypeController {
+public class RoomTypeDashboardController {
 
     private final RoomTypeService roomTypeService;
 
@@ -25,14 +27,14 @@ public class RoomTypeController {
 
     @GetMapping("create")
     public String getCreatePage(Model model) {
-        model.addAttribute("roomTypeForm", new RoomTypeForm());
+        model.addAttribute("roomTypeForm", new RoomTypeDashboardForm());
         Utility.addAttributesToFormModel(model, "Create",
                 "/admin/room-type/create", "Create");
         return "admin/room-type/form";
     }
 
     @PostMapping("create")
-    public String create(@Valid @ModelAttribute("roomTypeForm") RoomTypeForm roomTypeForm, BindingResult bindingResult, Model model) {
+    public String create(@Valid @ModelAttribute("roomTypeForm") RoomTypeDashboardForm roomTypeForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             Utility.addAttributesToFormModel(model, "Create", "/admin/room-type/create",
                     "Create");
@@ -47,7 +49,7 @@ public class RoomTypeController {
     @GetMapping("update/{id}")
     public String getUpdatePage(@PathVariable Integer id, Model model) {
         final RoomType roomType = roomTypeService.findById(id);
-        final RoomTypeForm roomTypeForm = new RoomTypeForm(roomType);
+        final RoomTypeDashboardForm roomTypeForm = new RoomTypeDashboardForm(roomType);
 
         model.addAttribute("roomTypeForm", roomTypeForm);
         Utility.addAttributesToFormModel(model, "Update", "/admin/room-type/update/" + id,
@@ -56,7 +58,7 @@ public class RoomTypeController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Integer id, @Valid @ModelAttribute("roomTypeForm") RoomTypeForm roomTypeForm,
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("roomTypeForm") RoomTypeDashboardForm roomTypeForm,
                                         BindingResult bindingResult,
                                         Model model) {
         if (bindingResult.hasErrors()) {
@@ -77,7 +79,7 @@ public class RoomTypeController {
         return "redirect:/admin/room-type";
     }
 
-    private void saveRoomType(RoomType roomType, RoomTypeForm form) {
+    private void saveRoomType(RoomType roomType, RoomTypeDashboardForm form) {
         roomType.setType(form.getType());
         roomType.setDescription(form.getDescription());
         roomType.setImage(form.getImage());

@@ -21,8 +21,8 @@ public class ReservationController {
     }
 
     @GetMapping("{id}")
-    public Reservation get(@PathVariable Integer id) {
-        return reservationService.get(id);
+    public Reservation find(@PathVariable Integer id) {
+        return reservationService.find(id);
     }
 
     @PatchMapping("{id}")

@@ -15,8 +15,8 @@ import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.TimeZone;
 
+import static com.shbs.common.Constant.DATE_FORMAT;
 import static com.shbs.common.Constant.LOCALE;
-import static com.shbs.common.Constant.MYSQL_DATE_FORMAT;
 
 @Component
 public class CustomJackson2ObjectMapperBuilder extends Jackson2ObjectMapperBuilder {
@@ -26,7 +26,7 @@ public class CustomJackson2ObjectMapperBuilder extends Jackson2ObjectMapperBuild
 
         objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        objectMapper.setDateFormat(new SimpleDateFormat(MYSQL_DATE_FORMAT, LOCALE));
+        objectMapper.setDateFormat(new SimpleDateFormat(DATE_FORMAT, LOCALE));
         objectMapper.setTimeZone(TimeZone.getTimeZone("GMT"));
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_ABSENT);
         objectMapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
