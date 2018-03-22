@@ -40,8 +40,7 @@ public class RoomTypeDashboardController {
                     "Create");
             return "admin/room-type/form";
         } else {
-            final RoomType roomType = new RoomType();
-            saveRoomType(roomType, roomTypeForm);
+            roomTypeService.save(roomTypeForm);
             return "redirect:/admin/room-type";
         }
     }
@@ -66,8 +65,7 @@ public class RoomTypeDashboardController {
                     "Update");
             return "admin/room-type/form";
         } else {
-            final RoomType roomType = roomTypeService.findById(id);
-            saveRoomType(roomType, roomTypeForm);
+            roomTypeService.save(roomTypeForm);
             return "redirect:/admin/room-type";
         }
     }
@@ -77,15 +75,5 @@ public class RoomTypeDashboardController {
         roomTypeService.delete(id);
 
         return "redirect:/admin/room-type";
-    }
-
-    private void saveRoomType(RoomType roomType, RoomTypeDashboardForm form) {
-        roomType.setType(form.getType());
-        roomType.setDescription(form.getDescription());
-        roomType.setImage(form.getImage());
-        roomType.setQuantity(0);
-        roomType.setPrice(form.getPrice());
-
-        roomTypeService.save(roomType);
     }
 }

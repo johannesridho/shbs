@@ -4,7 +4,7 @@ import com.shbs.common.exception.ShbsException;
 
 public class RoomTypeNotAvailableException extends ShbsException {
     public RoomTypeNotAvailableException() {
-        super("All the rooms with type you specified have been occupied ");
+        super("All the rooms with type you specified have been occupied");
     }
 
     @Override

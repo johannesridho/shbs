@@ -23,6 +23,8 @@ public class ReservationService {
 
     @Transactional
     public Reservation create(ReservationRequest request) {
+        ReservationValidationHelper.validateReservationTime(request.getStartDate(), request.getEndDate());
+
         validateRoomAvailability(request);
 
         final Reservation reservation = new Reservation();
@@ -48,6 +50,8 @@ public class ReservationService {
 
     @Transactional
     public Reservation update(Integer id, ReservationRequest request) {
+        ReservationValidationHelper.validateReservationTime(request.getStartDate(), request.getEndDate());
+
         final Reservation reservation = find(id);
 
         if (ZonedDateTime.now().isAfter(reservation.getStartDate())) {

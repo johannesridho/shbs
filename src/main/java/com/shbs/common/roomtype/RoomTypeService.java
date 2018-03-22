@@ -1,8 +1,11 @@
 package com.shbs.common.roomtype;
 
+import com.shbs.admin.roomtype.RoomTypeDashboardForm;
 import com.shbs.common.exception.NotFoundException;
+import com.shbs.common.reservation.ReservationValidationHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -21,6 +24,8 @@ public class RoomTypeService {
     }
 
     public List<AvailableRoomType> findAvailableRoomTypes(ZonedDateTime start, ZonedDateTime end) {
+        ReservationValidationHelper.validateReservationTime(start, end);
+
         final List<ReservedRoomType> reservedRoomTypes = roomTypeRepository.findReservedRoomTypes(start, end);
         final Map<Integer, Integer> reservedRoomTypeMap = new HashMap<>();
 
@@ -51,10 +56,19 @@ public class RoomTypeService {
                 .orElseThrow(() -> new NotFoundException(RoomType.class, id.toString()));
     }
 
-    public void save(RoomType roomType) {
+    @Transactional
+    public void save(RoomTypeDashboardForm form) {
+        final RoomType roomType = new RoomType();
+        roomType.setType(form.getType());
+        roomType.setDescription(form.getDescription());
+        roomType.setImage(form.getImage());
+        roomType.setQuantity(0);
+        roomType.setPrice(form.getPrice());
+
         roomTypeRepository.save(roomType);
     }
 
+    @Transactional
     public void delete(Integer id) {
         findById(id);
         roomTypeRepository.delete(id);
