@@ -1,8 +1,9 @@
 package com.shbs;
 
+import com.shbs.common.customer.Customer;
+import com.shbs.common.customer.CustomerRepository;
 import com.shbs.common.reservation.Reservation;
 import com.shbs.common.reservation.ReservationRepository;
-import com.shbs.common.roomtype.RoomTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ public class TestHelper {
     private ReservationRepository reservationRepository;
 
     @Autowired
-    private RoomTypeRepository roomTypeRepository;
+    private CustomerRepository customerRepository;
 
     public void cleanUp() {
     }
@@ -30,7 +31,17 @@ public class TestHelper {
         reservation.setEndDate(endDate);
         reservation.setCancelled(cancelled);
 
-        final Reservation createdReservation = reservationRepository.save(reservation);
-        return createdReservation.getId();
+        final Reservation newReservation = reservationRepository.save(reservation);
+        return newReservation.getId();
+    }
+
+    public Integer createCustomer(String username) {
+        final Customer customer = new Customer();
+        customer.setName("name");
+        customer.setPassword("pass");
+        customer.setUsername(username);
+
+        final Customer newCustomer = customerRepository.save(customer);
+        return newCustomer.getId();
     }
 }

@@ -129,7 +129,7 @@ public class ReservationFunctionalTest extends FunctionalTest {
     }
 
     @Test
-    public void testGet_Success() {
+    public void testFind_Success() {
         final Map<String, Object> response = given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
@@ -155,7 +155,7 @@ public class ReservationFunctionalTest extends FunctionalTest {
     }
 
     @Test
-    public void testGet_NotFound() {
+    public void testFind_NotFound() {
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)

@@ -47,11 +47,17 @@ public class ReservationService {
                         String.format("Reservation with id %d is not found or it has been cancelled", id)));
     }
 
+    public Reservation findForUpdate(Integer id) {
+        return reservationRepository.findByIdAndAndCancelledForUpdate(id, Boolean.FALSE)
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Reservation with id %d is not found or it has been cancelled", id)));
+    }
+
     @Transactional
     public Reservation update(Integer id, ReservationRequest request) {
         ReservationValidationHelper.validateReservationTime(request.getStartDate(), request.getEndDate());
 
-        final Reservation reservation = find(id);
+        final Reservation reservation = findForUpdate(id);
 
         if (ZonedDateTime.now().isAfter(reservation.getStartDate())) {
             throw new ReservationStartDateHasPassedException();
@@ -74,7 +80,7 @@ public class ReservationService {
 
     @Transactional
     public Reservation cancel(Integer id) {
-        final Reservation reservation = find(id);
+        final Reservation reservation = findForUpdate(id);
 
         reservation.setCancelled(Boolean.TRUE);
 
