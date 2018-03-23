@@ -1,6 +1,7 @@
 package com.shbs.api.reservation;
 
 import com.shbs.common.jpa.converter.ZonedDateTimeConverter;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ReservationRequest {
 
     @NotNull

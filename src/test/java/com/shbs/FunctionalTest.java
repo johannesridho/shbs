@@ -25,7 +25,7 @@ import java.util.function.Function;
         DependencyInjectionTestExecutionListener.class,
         FlywayTestExecutionListener.class
 })
-@FlywayTest(invokeCleanDB = false, locationsForMigrate = {"db/data"})
+@FlywayTest(locationsForMigrate = {"db/migration"})
 public class FunctionalTest {
 
     @Rule

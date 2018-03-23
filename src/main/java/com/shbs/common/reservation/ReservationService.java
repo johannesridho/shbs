@@ -3,7 +3,6 @@ package com.shbs.common.reservation;
 import com.shbs.api.reservation.ReservationRequest;
 import com.shbs.common.exception.NotFoundException;
 import com.shbs.common.reservation.exception.AvailableRoomsNotEnoughException;
-import com.shbs.common.reservation.exception.ReservationAlreadyCancelledException;
 import com.shbs.common.reservation.exception.ReservationStartDateHasPassedException;
 import com.shbs.common.roomtype.RoomType;
 import com.shbs.common.roomtype.RoomTypeRepository;
@@ -76,10 +75,6 @@ public class ReservationService {
     @Transactional
     public Reservation cancel(Integer id) {
         final Reservation reservation = find(id);
-
-        if (reservation.getCancelled()) {
-            throw new ReservationAlreadyCancelledException();
-        }
 
         reservation.setCancelled(Boolean.TRUE);
 

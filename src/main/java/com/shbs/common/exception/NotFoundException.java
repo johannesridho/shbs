@@ -14,7 +14,7 @@ public class NotFoundException extends ShbsException {
     }
 
     public NotFoundException(String entityName, String entityId) {
-        super(String.format(Constant.LOCALE, "%s with Id %s not found.", entityName, entityId));
+        super(String.format(Constant.LOCALE, "%s with Id %s is not found", entityName, entityId));
     }
 
     @Override
