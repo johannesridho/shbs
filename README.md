@@ -147,6 +147,7 @@ Response :
 
 ## IV. Admin Dashboard
 This section describes the list of available dashboard.
+The URL is {host}/admin, for example http://localhost:8080/admin/login
 
 ### 1. Login and Logout
 Features :
