@@ -2,9 +2,12 @@ package com.shbs.reservation;
 
 import com.shbs.FunctionalTest;
 import com.shbs.api.reservation.ReservationRequest;
+import com.shbs.common.reservation.Reservation;
+import com.shbs.common.reservation.ReservationRepository;
 import io.restassured.http.ContentType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
@@ -12,6 +15,7 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.shbs.common.Constant.ZONE_OFFSET;
 import static io.restassured.RestAssured.given;
@@ -21,6 +25,9 @@ import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ReservationFunctionalTest extends FunctionalTest {
+
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @Test
     public void testCreate_Success() {
@@ -53,6 +60,11 @@ public class ReservationFunctionalTest extends FunctionalTest {
         assertThat(response).containsOnlyKeys(
             "id", "room_type_id", "customer_id", "quantity", "start_date", "end_date", "cancelled", "created_at",
                 "updated_at");
+
+        final Optional<Reservation> newReservation = reservationRepository
+                .findOne(Integer.valueOf(response.get("id").toString()));
+
+        assertThat(newReservation.isPresent());
     }
 
     @Test
@@ -187,6 +199,11 @@ public class ReservationFunctionalTest extends FunctionalTest {
         assertThat(response).containsOnlyKeys(
                 "id", "room_type_id", "customer_id", "quantity", "start_date", "end_date", "cancelled", "created_at",
                 "updated_at");
+
+        final Optional<Reservation> newReservation = reservationRepository
+                .findOne(Integer.valueOf(response.get("id").toString()));
+
+        assertThat(newReservation.get().getQuantity()).isEqualTo(10);
     }
 
     @Test
@@ -345,6 +362,11 @@ public class ReservationFunctionalTest extends FunctionalTest {
         assertThat(response).containsOnlyKeys(
                 "id", "room_type_id", "customer_id", "quantity", "start_date", "end_date", "cancelled", "created_at",
                 "updated_at");
+
+        final Optional<Reservation> newReservation = reservationRepository
+                .findOne(Integer.valueOf(response.get("id").toString()));
+
+        assertThat(newReservation.get().getCancelled()).isEqualTo(Boolean.TRUE);
     }
 
     @Test
