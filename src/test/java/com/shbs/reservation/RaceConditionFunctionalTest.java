@@ -3,7 +3,6 @@ package com.shbs.reservation;
 import com.shbs.FunctionalTest;
 import com.shbs.api.reservation.ReservationRequest;
 import com.shbs.common.reservation.ReservationRepository;
-import com.shbs.common.roomtype.RoomTypeRepository;
 import io.restassured.http.ContentType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,9 +23,6 @@ public class RaceConditionFunctionalTest extends FunctionalTest {
 
     @Autowired
     private ReservationRepository reservationRepository;
-
-    @Autowired
-    private RoomTypeRepository roomTypeRepository;
 
     @Test
     public void testCreateReservation() throws InterruptedException {
